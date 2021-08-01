@@ -6,6 +6,7 @@ using Mono.Cecil.Cil;
 //using UnityEditor;
 //using UnityEditor.Compilation;
 using UnityEngine;
+using Mirror_External_Weaver;
 
 namespace Mirror.Weaver
 {
@@ -15,17 +16,13 @@ namespace Mirror.Weaver
         {
             Readers.Init();
             Writers.Init();
-            foreach (Assembly unityAsm in CompilationPipeline.GetAssemblies())
+
+            using (DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver())
+            using (AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(Program.mirrorDllLocation, new ReaderParameters { ReadWrite = false, ReadSymbols = false, AssemblyResolver = asmResolver }))
             {
-                if (unityAsm.name == "Mirror")
-                {
-                    using (DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver())
-                    using (AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(unityAsm.outputPath, new ReaderParameters { ReadWrite = false, ReadSymbols = false, AssemblyResolver = asmResolver }))
-                    {
-                        ProcessAssemblyClasses(CurrentAssembly, assembly);
-                    }
-                }
+                ProcessAssemblyClasses(CurrentAssembly, assembly);
             }
+
 
             return ProcessAssemblyClasses(CurrentAssembly, CurrentAssembly);
         }
@@ -151,7 +148,7 @@ namespace Mirror.Weaver
             CustomAttribute customAttributeRef = new CustomAttribute(currentAssembly.MainModule.ImportReference(attributeconstructor));
             customAttributeRef.ConstructorArguments.Add(new CustomAttributeArgument(WeaverTypes.Import<RuntimeInitializeLoadType>(), RuntimeInitializeLoadType.BeforeSceneLoad));
             rwInitializer.CustomAttributes.Add(customAttributeRef);
-
+            /*
             if (IsEditorAssembly(currentAssembly))
             {
                 // editor assembly,  add InitializeOnLoadMethod too.  Useful for the editor tests
@@ -159,6 +156,7 @@ namespace Mirror.Weaver
                 CustomAttribute initializeCustomConstructorRef = new CustomAttribute(currentAssembly.MainModule.ImportReference(initializeOnLoadConstructor));
                 rwInitializer.CustomAttributes.Add(initializeCustomConstructorRef);
             }
+            */
 
             ILProcessor worker = rwInitializer.Body.GetILProcessor();
 

@@ -165,7 +165,7 @@ namespace Mirror.Weaver
             using (CurrentAssembly = AssemblyDefinition.ReadAssembly(assName, new ReaderParameters { ReadWrite = true, ReadSymbols = true, AssemblyResolver = asmResolver }))
             {
                 asmResolver.AddSearchDirectory(Path.GetDirectoryName(assName));
-                asmResolver.AddSearchDirectory(Helpers.UnityEngineDllDirectoryName());
+                //asmResolver.AddSearchDirectory(Helpers.UnityEngineDllDirectoryName());
                 if (dependencies != null)
                 {
                     foreach (string path in dependencies)

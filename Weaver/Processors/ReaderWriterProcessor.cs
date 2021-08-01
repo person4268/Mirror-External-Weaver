@@ -1,10 +1,10 @@
 // finds all readers and writers and register them
 using System;
 using System.Linq;
-using Mono.CecilX;
-using Mono.CecilX.Cil;
-using UnityEditor;
-using UnityEditor.Compilation;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
+//using UnityEditor;
+//using UnityEditor.Compilation;
 using UnityEngine;
 
 namespace Mirror.Weaver

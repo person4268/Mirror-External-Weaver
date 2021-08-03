@@ -5,4 +5,10 @@
     <EmbeddedResource Remove="prebuilt\**" />
     <None Remove="prebuilt\**" />
   </ItemGroup>
+
+    <ItemGroup>
+    <Content Include="LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

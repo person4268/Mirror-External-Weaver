@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mirror.Weaver;
+﻿using Mirror.Weaver;
+
+using System.IO;
 
 namespace Mirror_External_Weaver
 {
@@ -12,7 +9,7 @@ namespace Mirror_External_Weaver
     {
         static void Main(string[] args)
         {
-            Weaver.WeaveAssembly(args[0], new string[] { args[1] });
+            Weaver.WeaveAssembly(Path.GetFullPath(args[0].Trim('"')), new string[] { Path.GetFullPath(args[1].Trim('"')) });
         }
 
         public static string mirrorDllLocation = "Mirror.dll";

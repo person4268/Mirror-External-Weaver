@@ -1,6 +1,6 @@
 // Injects server/client active checks for [Server/Client] attributes
-using Mono.Cecil;
-using Mono.Cecil.Cil;
+using Mono.CecilX;
+using Mono.CecilX.Cil;
 
 namespace Mirror.Weaver
 {

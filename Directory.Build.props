@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Common Properties">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <DefaultItemExcludes>$(DefaultItemExcludes);*.binlog</DefaultItemExcludes>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  
+  <!-- Shared Items -->
+  <ItemGroup Label="NuGets">
+    <PackageReference Include="Mono.Cecil" Version="0.11.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" PrivateAssets="all" />
+    <PackageReference Include="UnityEngine.Core" Version="2018.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Mirror Networking">
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.Authenticators.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.Cloud.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.Components.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\kcp2k.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\SimpleWebTransport.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Telepathy.dll" Private="true" SpecificVersion="true" />
+  </ItemGroup>
+</Project>

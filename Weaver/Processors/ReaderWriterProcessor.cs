@@ -1,10 +1,11 @@
 // finds all readers and writers and register them
-using System;
 using System.Linq;
-using Mono.CecilX;
-using Mono.CecilX.Cil;
-using UnityEditor;
-using UnityEditor.Compilation;
+
+using Mirror_External_Weaver;
+
+using Mono.Cecil;
+using Mono.Cecil.Cil;
+
 using UnityEngine;
 
 namespace Mirror.Weaver
@@ -15,16 +16,11 @@ namespace Mirror.Weaver
         {
             Readers.Init();
             Writers.Init();
-            foreach (Assembly unityAsm in CompilationPipeline.GetAssemblies())
+
+            using (DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver())
+            using (AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(Program.mirrorDllLocation, new ReaderParameters { ReadWrite = false, ReadSymbols = false, AssemblyResolver = asmResolver }))
             {
-                if (unityAsm.name == "Mirror")
-                {
-                    using (DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver())
-                    using (AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(unityAsm.outputPath, new ReaderParameters { ReadWrite = false, ReadSymbols = false, AssemblyResolver = asmResolver }))
-                    {
-                        ProcessAssemblyClasses(CurrentAssembly, assembly);
-                    }
-                }
+                ProcessAssemblyClasses(CurrentAssembly, assembly);
             }
 
             return ProcessAssemblyClasses(CurrentAssembly, CurrentAssembly);
@@ -153,13 +149,13 @@ namespace Mirror.Weaver
             customAttributeRef.ConstructorArguments.Add(new CustomAttributeArgument(WeaverTypes.Import<RuntimeInitializeLoadType>(), RuntimeInitializeLoadType.BeforeSceneLoad));
             rwInitializer.CustomAttributes.Add(customAttributeRef);
 
-            // add [InitializeOnLoad] if UnityEditor is referenced
+            /*// add [InitializeOnLoad] if UnityEditor is referenced
             if (IsEditorAssembly(currentAssembly))
             {
                 System.Reflection.ConstructorInfo initializeOnLoadConstructor = typeof(InitializeOnLoadMethodAttribute).GetConstructor(new Type[0]);
                 CustomAttribute initializeCustomConstructorRef = new CustomAttribute(currentAssembly.MainModule.ImportReference(initializeOnLoadConstructor));
                 rwInitializer.CustomAttributes.Add(initializeCustomConstructorRef);
-            }
+            }*/
 
             // fill function body with reader/writer initializers
             ILProcessor worker = rwInitializer.Body.GetILProcessor();

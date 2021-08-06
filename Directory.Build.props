@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Mirror Networking">
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.dll" Private="true" SpecificVersion="true" />
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.Authenticators.dll" Private="true" SpecificVersion="true" />
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.Components.dll" Private="true" SpecificVersion="true" />
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\kcp2k.dll" Private="true" SpecificVersion="true" />
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\SimpleWebTransport.dll" Private="true" SpecificVersion="true" />
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Telepathy.dll" Private="true" SpecificVersion="true" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.dll" Private="false" SpecificVersion="false" />
   </ItemGroup>
 </Project>

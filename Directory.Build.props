@@ -20,6 +20,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Mirror Networking">
-    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.dll" Private="false" SpecificVersion="false" />
+    <Reference Include="$(MSBuildThisFileDirectory)prebuilt\Mirror.dll" Private="true" SpecificVersion="false" />
   </ItemGroup>
 </Project>

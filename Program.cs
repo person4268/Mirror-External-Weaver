@@ -12,6 +12,6 @@ namespace Mirror_External_Weaver
             Weaver.WeaveAssembly(Path.GetFullPath(args[0].Trim('"')), new string[] { Path.GetFullPath(args[1].Trim('"')) });
         }
 
-        public static string mirrorDllLocation = "Mirror.dll";
+        public const string mirrorDllLocation = "Mirror.dll";
     }
 }
